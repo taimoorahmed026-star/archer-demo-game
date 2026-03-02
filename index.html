@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Archer Demo Game</title>
+
+<style>
+body{
+    text-align:center;
+    background:#0f172a;
+    color:white;
+    font-family:Arial;
+}
+
+canvas{
+    background:#1e293b;
+    margin-top:20px;
+}
+</style>
+
+</head>
+
+<body>
+
+<h1>🏹 Archer Demo Game</h1>
+<p>Click mouse to shoot arrow</p>
+
+<canvas id="game" width="600" height="400"></canvas>
+
+<script>
+
+let canvas = document.getElementById("game");
+let ctx = canvas.getContext("2d");
+
+let arrowX = 50;
+let arrowY = 200;
+let shooting = false;
+
+function drawPlayer(){
+    ctx.fillStyle="green";
+    ctx.fillRect(30,180,40,40);
+}
+
+function drawEnemy(){
+    ctx.fillStyle="red";
+    ctx.fillRect(500,150,40,40);
+}
+
+function drawArrow(){
+    ctx.fillStyle="yellow";
+    ctx.fillRect(arrowX,arrowY,20,5);
+}
+
+function updateGame(){
+
+    ctx.clearRect(0,0,600,400);
+
+    drawPlayer();
+    drawEnemy();
+    drawArrow();
+
+    if(shooting){
+        arrowX += 5;
+    }
+
+    if(arrowX > 600){
+        arrowX = 50;
+        shooting = false;
+    }
+
+    requestAnimationFrame(updateGame);
+}
+
+canvas.addEventListener("click",()=>{
+    shooting = true;
+});
+
+updateGame();
+
+</script>
+
+</body>
+</html>
